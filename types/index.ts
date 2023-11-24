@@ -39,3 +39,11 @@ export type CarDetailsProps = {
   closeModal: () => void
   car: CarProps
 }
+
+export type FilterProps = {
+  manufacturer: string;
+  year: number;
+  fuel: string;
+  limit: number;
+  model: string;
+}
