@@ -21,8 +21,8 @@ export type OptionProps = {
 }
 
 export type SearchManufacturerProps = {
-  manufacturer: string;
-  setManufacturer: Dispatch<SetStateAction<string>>;
+  selected: string;
+  setSelected: Dispatch<SetStateAction<string>>;
 };
 
 export type CarProps = {
