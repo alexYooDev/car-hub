@@ -3,19 +3,11 @@
 import { CustomFilterProps } from '@/types'
 import { useState, Fragment } from 'react'
 import Image from 'next/image'
-import { useRouter, useSearchParams } from 'next/navigation';
 import { Listbox, Transition } from '@headlessui/react'
-import { updateSearchParams } from '@/utils';
 
-const CustomFilter = ({title, options}: CustomFilterProps) => {
+const CustomFilter = ({title, options, setFilter}: CustomFilterProps) => {
 
-  const router = useRouter();
   const [selected, setSelected] =  useState(options[0]);
-
-  const handleUpadateParams = (e: {title: string, value: string }) => {
-    const newPathname = updateSearchParams(title, e.value.toLowerCase());
-    router.push(newPathname);
-  }
 
   return (
     <div className='w-fit'>
@@ -24,7 +16,10 @@ const CustomFilter = ({title, options}: CustomFilterProps) => {
         onChange={
           (e) => {
             setSelected(e);
-            handleUpadateParams(e);
+            setFilter((prev) => ({
+              ...prev,
+              [title]: e.value
+            }));
           }
           
         }

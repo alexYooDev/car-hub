@@ -13,7 +13,12 @@ export type CustomButtonProps = {
 export type CustomFilterProps = {
   title: string;
   options: OptionProps[];
+  setFilter: React.Dispatch<SetStateAction<Object>>;
 };
+
+export type SearchBarProps = {
+  setSearch: () => void;
+}
 
 export type OptionProps = {
   title: string;
@@ -57,4 +62,5 @@ export type FilterProps = {
 export type ShowMoreProps = {
   pageNumber: number;
   isNext: boolean;
-}
+  setLimit: React.Dispatch<SetStateAction<Object>>;
+};

@@ -3,6 +3,7 @@
 import {SetStateAction, useState} from 'react'
 import { SearchManufacturer } from '.'
 import Image from 'next/image'
+import { SearchBarProps } from '@/types'
 
 const SearchButton = ({otherClasses}: {otherClasses: string}) => (
   <button 
@@ -19,7 +20,7 @@ const SearchButton = ({otherClasses}: {otherClasses: string}) => (
   </button>
 )
 
-const SearchBar = ({setSearch}: {setSearch : React.Dispatch<SetStateAction<Object>>}) => {
+const SearchBar = ({setSearch}: {setSearch : React.Dispatch<SetStateAction<Object>>} ) => {
 
   const [searchManufacturer, setSearchManufacturer] = useState('');
   const [searchModel, setSearchModel] = useState('');
@@ -31,7 +32,7 @@ const SearchBar = ({setSearch}: {setSearch : React.Dispatch<SetStateAction<Objec
       return alert('Please fill in the search bar');
     }
 
-    setSearch((prev) => ({
+    setSearch((prev: Object) => ({
       ...prev,
       manufacturer: searchManufacturer,
       model: searchModel

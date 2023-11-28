@@ -66,11 +66,12 @@ export default function Home() {
           <p>Explore the cars you might like</p>
           <div className='home__filters'>
             <SearchBar 
+              search={search}
               setSearch={setSearch}
             />
             <div className='home__filter-container'>
-              <CustomFilter title='fuel' options={fuels} setSearch={setSearch}/>
-              <CustomFilter title='year' options={yearsOfProduction} setSearch={setSearch} />
+              <CustomFilter title='fuel' options={fuels} setFilter={setSearch}/>
+              <CustomFilter title='year' options={yearsOfProduction} setFilter={setSearch} />
             </div>
           </div>
           {allCars.length > 0 ? (
@@ -92,14 +93,15 @@ export default function Home() {
                 </div>
               )}
               <ShowMore
-                pageNumber={(search.limit || 10) / 10}
-                isNext={(search.limit || 10) > allCars.length}
+                pageNumber={search.limit / 10}
+                isNext={search.limit > allCars.length}
+                setLimit={setSearch}
               />
             </section>
           ) : (
             <div className='home__error-container'>
               <h2 className='text-black text-xl font-bold'>Oops, no results</h2>
-              <p>{allCars?.message}</p>
+              <p>{allCars}</p>
             </div>
           )}
         </div>
