@@ -12,7 +12,13 @@ export type CustomButtonProps = {
 
 export type CustomFilterProps = {
   title: string;
+  options: OptionProps[];
 };
+
+export type OptionProps = {
+  title: string;
+  value: string;
+}
 
 export type SearchManufacturerProps = {
   manufacturer: string;
@@ -46,4 +52,9 @@ export type FilterProps = {
   fuel: string;
   limit: number;
   model: string;
+}
+
+export type ShowMoreProps = {
+  pageNumber: number;
+  isNext: boolean;
 }
