@@ -1,3 +1,4 @@
+'use client'
 
 import { CustomFilter, Hero, SearchBar } from "@/components"
 import { fetchAllCars } from "@/utils"
