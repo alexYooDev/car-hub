@@ -6,15 +6,55 @@ import { CarCard } from "@/components";
 import { FilterProps } from "@/types";
 import { fuels, yearsOfProduction } from "@/constants";
 import ShowMore from "@/components/ShowMore";
+import { useState, useEffect } from "react";
 
-export default async function Home({ searchParams }: { searchParams: FilterProps }) {
-  const allCars = await fetchAllCars({
-    manufacturer: searchParams.manufacturer || '',
-    model: searchParams.model || '',
-    year: searchParams.year || 2022,
-    fuel: searchParams.fuel || '',
-    limit: searchParams.limit || 10,
-  });
+export default function Home() {
+
+  const [allCars, setAllCars] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  /* search states */
+  const [manufacturer, setManufacturer] = useState('');
+  const [model, setModel] = useState('');
+  const [fuel, setFuel] = useState('');
+  const [year, setYear] = useState(2020);
+  const [limit, setLimit] = useState(10);
+
+/*   const [search, setSearch] = useState({
+    manufacturer: '',
+    model: '',
+    fuel: '',
+    year: 2020,
+    limit: 10
+  }) */
+
+  const getCars = async () => {
+
+    setIsLoading(true);
+
+    try {
+
+      const result = await fetchAllCars({
+        manufacturer,
+        year,
+        model,
+        limit,
+        fuel
+      });
+
+      setAllCars(result);
+
+    } catch(error) {
+      console.log(error);
+
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getCars();
+  }, [manufacturer, model, fuel, year, limit])
 
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
 
@@ -36,12 +76,12 @@ export default async function Home({ searchParams }: { searchParams: FilterProps
             <section>
               <div className='home__cars-wrapper'>
                 {allCars?.map((car) => (
-                  <CarCard key={car.city_mpg} car={car} />
+                  <CarCard key={car} car={car} />
                 ))}
               </div>
               <ShowMore
-                pageNumber={(searchParams.limit || 10) / 10}
-                isNext={(searchParams.limit || 10) > allCars.length}
+                pageNumber={(limit || 10) / 10}
+                isNext={(limit || 10) > allCars.length}
               />
             </section>
           ) : (
